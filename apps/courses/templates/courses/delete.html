@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Delete a course</title>
+  </head>
+  <body>
+    <p>
+      Are you sure you want to delete the course?
+    </p>
+    <p>
+      Name: {{ courses.name }}
+    </p>
+    <p>
+      Desc: {{ courses.desc }}
+    </p>
+    <a href="/">No</a>
+    <a href="/delete/{{ courses.id }}">Yes</a>
+  </body>
+</html>

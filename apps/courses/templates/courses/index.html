@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Courses</title>
+    <style>
+    body {
+  background-color: #fff;
+  color: #111;
+  margin: 0;
+  padding: 0;
+  font: 0.75em/1.3 "Lucida Grande", "Lucida Sans Unicode",
+    "Lucida Sans", Verdana, Tahoma, sans-serif;
+}
+
+.wrapper {
+  width: 80%;
+  margin: 20px auto 40px auto;
+}
+
+.datatable {
+  width: 100%;
+  border: 1px solid #d6dde6;
+  border-collapse: collapse;
+}
+
+.datatable td {
+  border: 1px solid #d6dde6;
+  padding: 0.3em;
+}
+
+.datatable th {
+  border: 1px solid #828282;
+  background-color: #bcbcbc;
+  font-weight: bold;
+  text-align: left;
+  padding-left: 0.3em;
+}
+
+.datatable caption {
+  font: bold 110% Arial, Helvetica, sans-serif;
+  color: #33517a;
+  text-align: left;
+  padding: 0.4em 0 0.8em 0;
+}
+
+.datatable tr:nth-child(odd) {
+  background-color: #dfe7f2;
+  color: #000000;
+}
+    </style>
+  </head>
+
+  <body>
+    <wrapper>
+      <h2>Add a new course</h2>
+      {%if messages%}
+      <ul>
+        {%for message in messages%}
+        <li>{{message}}</li>
+
+        {%endfor%}
+      </ul>
+      {%endif%}
+      <form name = "add_course" action = "/add" method="POST">
+        {% csrf_token %}
+        <p>
+          Name: <input type="text" name = "name" placeholder="Course name"> (at least 5 characters)
+        </p>
+        <p>
+          Description: <textarea name="desc" rows="10" cols="30" placeholder="Description must be at least 15 characters."></textarea>
+        </p>
+        <p>
+          <input type="submit" value="submit">
+        </p>
+      </form>
+      <table class="datatable">
+        <caption>Courses</caption>
+
+        <tr>
+          <th scope="col">Course Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Date Added</th>
+          <th scope="col">Action</th>
+        </tr>
+        {% for course in courses %}
+          <tr>
+            <td>{{course.name}}</td>
+            <td>{{course.desc}}</td>
+            <td>{{course.created_at}}</td>
+            <td><a href="/confirm_delete/{{ course.id }}">Delete</a></td>
+
+          </tr>
+        {% endfor %}
+      </table>
+    </wrapper>
+
+  </body>
+</html>
